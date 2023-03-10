@@ -1,0 +1,60 @@
+.place_item {
+    margin: 1rem 0;
+  }
+  
+  .place_item_content {
+    padding: 0;
+  }
+  
+  .place_item_info {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .place_item_image {
+    width: 100%;
+    height: 12.5rem;
+    margin-right: 1.5rem;
+  }
+  
+  .place_item_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .place_item_info h2,
+  .place_item_info h3,
+  .place_item_info p {
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .place_item_actions {
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #ccc;
+  }
+  
+  .place_item_modal_content {
+    padding: 0;
+  }
+  
+  .place_item_modal_actions {
+    text-align: right;
+  }
+  
+  .place_item_actions button,
+  .place_item_actions a {
+    margin: 0.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .place_item_image {
+      height: 20rem;
+    } 
+  }
+
+  .map_container{
+    height: 15rem;
+    width: 100%;
+  }
