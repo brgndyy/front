@@ -1,16 +1,25 @@
 import React from "react";
 import Input from "../../shared/components/FormElements/Input";
 import "./PlaceForm.css";
-
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
+import { useNavigate } from "react-router-dom";
+
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import Button from "../../shared/components/FormElements/Button";
 import { useForm } from "../../shared/hooks/form-hook";
 
 export default function NewPlace() {
+  const auth = useContext(AuthContext);
+  console.log(auth.userId);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       title: {
@@ -29,14 +38,32 @@ export default function NewPlace() {
     false
   );
 
-  const placeSubmitHandler = (e) => {
+  const naviagte = useNavigate();
+
+  const placeSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(formState.inputs); // 백엔드로 보내기
+    try {
+      await sendRequest(
+        "http://localhost:3000/api/places",
+        "POST",
+        JSON.stringify({
+          title: formState.inputs.title.value,
+          description: formState.inputs.description.value,
+          address: formState.inputs.address.value,
+          id: auth.userId,
+        }),
+        { "Content-Type": "application/json" }
+      );
+
+      naviagte("/");
+    } catch (err) {}
   };
 
   return (
     <>
+      <ErrorModal error={error} onClear={clearError} />
       <form className="place-form" onSubmit={placeSubmitHandler}>
+        {isLoading && <LoadingSpinner asOverlay />}
         <Input
           id="title"
           element="input"
