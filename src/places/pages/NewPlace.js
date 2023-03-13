@@ -18,7 +18,6 @@ import { useForm } from "../../shared/hooks/form-hook";
 
 export default function NewPlace() {
   const auth = useContext(AuthContext);
-  console.log(auth.userId);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {

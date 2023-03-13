@@ -18,7 +18,7 @@ export default function UserPlaces() {
         const responseData = await sendRequest(
           `http://localhost:3000/api/places/user/${userId}`
         );
-        setLoadedPlaces(responseData);
+        setLoadedPlaces(responseData.places);
       } catch (err) {}
     };
     fetchPlaces();
@@ -39,10 +39,7 @@ export default function UserPlaces() {
         </div>
       )}
       {!isLoading && loadedPlaces && (
-        <PlaceList
-          items={loadedPlaces.places}
-          onDeletePlace={placeDeletedHandler}
-        />
+        <PlaceList items={loadedPlaces} onDeletePlace={placeDeletedHandler} />
       )}
     </>
   );

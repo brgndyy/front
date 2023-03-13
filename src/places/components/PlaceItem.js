@@ -14,6 +14,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 export default function PlaceItem(props) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
+  console.log("게시글 id :", props.id);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -37,10 +38,14 @@ export default function PlaceItem(props) {
     setShowConfirmModal(false);
     try {
       await sendRequest(
-        `http://localhost:3000/api/places${props.id}`,
-        "DELETE"
+        `http://localhost:3000/api/places/${props.id}`,
+        "DELETE",
+        JSON.stringify({
+          id: auth.userId,
+        }),
+        { "Content-Type": "application/json" }
       );
-      console.log("props.id : ", props.id);
+
       props.onDelete(props.id);
     } catch (err) {}
   };
@@ -96,10 +101,10 @@ export default function PlaceItem(props) {
             <Button onClick={openMapHandler} inverse>
               VIEW ON MAP
             </Button>
-            {auth.isLoggedIn && (
+            {auth.userId === props.creatorId && (
               <Button to={`/places/${props.id}`}>EDIT</Button>
             )}
-            {auth.isLoggedIn && (
+            {auth.userId === props.creatorId && (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>
