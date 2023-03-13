@@ -3,6 +3,16 @@ import UserItem from "./UserItem";
 import Card from "../../shared/components/UIElements/Card";
 
 export default function UserList(props) {
+  if (!props.items) {
+    return (
+      <div className={classes.center}>
+        <Card>
+          <h2>Something wrong.</h2>
+        </Card>
+      </div>
+    );
+  }
+
   if (props.items.length === 0) {
     return (
       <div className={classes.center}>
