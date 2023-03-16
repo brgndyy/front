@@ -89,7 +89,10 @@ export default function PlaceItem(props) {
         <Card className={classes.place_item_content}>
           {isLoading && <LoadingSpinner asOverlay />}
           <div className={classes.place_item_image}>
-            <img src={props.image} alt={props.title}></img>
+            <img
+              src={`http://localhost:3000/${props.image}`}
+              alt={props.title}
+            ></img>
           </div>
           <div className={classes.place_item_info}>
             <h2>{props.title}</h2>
