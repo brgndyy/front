@@ -14,11 +14,11 @@ export default function ImageUpload(props) {
     }
 
     const filedReader = new FileReader();
-    FileReader.onload = () => {
+    filedReader.onload = () => {
       setPreviewUrl(filedReader.result);
     };
 
-    FileReader.readAsDataUrl(file);
+    filedReader.readAsDataURL(file);
   }, [file]);
 
   const pickImageHandler = () => {
@@ -27,18 +27,20 @@ export default function ImageUpload(props) {
 
   const pickedHandler = (e) => {
     let pickedFile;
-    let filesIsValid = isValid;
+    let fileIsValid = isValid;
+
     if (e.target.files && e.target.files.length === 1) {
       const pickedFile = e.target.files[0];
+
       setFile(pickedFile);
       setIsValid(true);
-      filesIsValid = true;
+      fileIsValid = true;
     } else {
       setIsValid(false);
-      filesIsValid = false;
+      fileIsValid = false;
     }
 
-    props.onInput(props.id, pickedFile, filesIsValid);
+    props.onInput(props.id, pickedFile, fileIsValid);
   };
 
   return (
