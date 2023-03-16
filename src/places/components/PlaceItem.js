@@ -14,7 +14,6 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 export default function PlaceItem(props) {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
-  console.log("게시글 id :", props.id);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
