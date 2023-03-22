@@ -40,8 +40,6 @@ export default function Auth() {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
 
-    console.log(formState.inputs);
-
     if (isLoginMode) {
       try {
         const responseData = await sendRequest(
@@ -56,7 +54,7 @@ export default function Auth() {
           }
         );
         // console.log(responseData.user.id);
-        auth.login(responseData.user.id);
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     } else {
       try {
@@ -70,9 +68,8 @@ export default function Auth() {
           "POST",
           formData
         );
-        const userId = responseData.user.id;
-        // console.log(responseData.user);
-        auth.login(userId);
+
+        auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     }
   };

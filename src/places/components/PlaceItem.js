@@ -16,6 +16,7 @@ export default function PlaceItem(props) {
   const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  console.log(props.id);
 
   const openMapHandler = () => {
     setShowMap(true);
@@ -39,10 +40,10 @@ export default function PlaceItem(props) {
       await sendRequest(
         `http://localhost:3000/api/places/${props.id}`,
         "DELETE",
-        JSON.stringify({
-          id: auth.userId,
-        }),
-        { "Content-Type": "application/json" }
+        null,
+        {
+          Authorization: "Bearer " + auth.token,
+        }
       );
 
       props.onDelete(props.id);
